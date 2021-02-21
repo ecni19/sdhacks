@@ -1,9 +1,13 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Grow from '@material-ui/core/Grow';
 // import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+// import { storage } from "../firestore";
+import firebase from "firebase/app";
+import "firebase/storage";
 
 import "./UploadForm.css";
 
@@ -41,18 +45,19 @@ function UploadForm() {
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = () => {
     // maybe make it so that you can only submit if all 3 fields have someting
-    // e.preventDefault();
-    // const response = await fetch (`${req.body.filepath}`, {
-    //   method: 'POST',
-    //   headers: {
-        
-    //   }
-    //   body: JSON.stringify({ post: file })
-    // })
+
     alert(title + " [" + tags + "] " + file);
-    const votes = 0;
+    // const votes = 0;
+
+    var storageRef = firebase.storage().ref();
+    var fileRef = storageRef.child(file.name);
+    fileRef.put(file).then( () => {
+        console.log(fileRef.path);
+        console.log("it uploaded?? D:");
+    });
+
   }
 
   return (
@@ -60,50 +65,60 @@ function UploadForm() {
       <Grid container direction="row" justify="center">
         <Grid item>
           <Grid container direction="column">
-            <Grid item>
-              <TextField
-                style={{ width: "800px", height: "75px" }}
-                id="standard-basic"
-                label="Title"
-                onChange={e => setTitle(e.target.value)}
-              />
-            </Grid>
+            <Grow in={true} timeout={1500}>
+              <Grid item>
+                <TextField
+                  style={{ width: "800px", height: "75px" }}
+                  id="standard-basic"
+                  label="Title"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Grid>
+            </Grow>
           </Grid>
           <Grid container direction="column">
-            <Grid item>
-              <TextField
-                style={{ width: "800px", height: "75px" }}
-                id="standard-basic"
-                label="Tags (separate with commas)"
-                onChange={e => setTags(e.target.value.split(','))}
-              />
-            </Grid>
+            <Grow in={true} timeout={1750}>
+              <Grid item>
+                <TextField
+                  style={{ width: "800px", height: "75px", marginTop: "10px" }}
+                  id="standard-basic"
+                  label="Tags (separate with commas)"
+                  onChange={(e) => setTags(e.target.value.split(","))}
+                />
+              </Grid>
+            </Grow>
           </Grid>
           <Grid container direction="column">
-            <Grid item>
-              <Button
-                variant="contained"
-                component="label"
-                style={{ width: "150px", height: "35px" }}
-              >
-                Upload File
-                <input
-                  type="file"
-                  hidden
-                  id="upload-file"
-                  onChange={onFileChange}
-                ></input>
-              </Button>
-              <Button
-                variant="contained"
-                component="label"
-                style={{ width: "150px", height: "35px", float: "right" }}
-                onClick={handleSubmit}
-              >
-                Post
-              </Button>
-            </Grid>
-            <Grid item>{showFile()}</Grid> {/* fix if have time */}
+            <Grow in={true} timeout={2000}>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  component="label"
+                  color="primary"
+                  style={{ width: "150px", height: "35px", boxShadow: "2px 5px 10px rgba(0, 0, 0, 0.15)",}}
+                >
+                  Upload File
+                  <input
+                    type="file"
+                    hidden
+                    id="upload-file"
+                    onChange={onFileChange}
+                  ></input>
+                </Button>
+                <Button
+                  variant="contained"
+                  component="label"
+                  color="primary"
+                  style={{width: "150px", height: "35px", float: "right", boxShadow: "2px 5px 10px rgba(0, 0, 0, 0.15)"}}
+                  onClick={handleSubmit}
+                >
+                  Post
+                </Button>
+                <Grid item style={{ marginBottom: "-100px" }}>
+                  <div>{showFile()}</div>
+                </Grid>
+              </Grid>
+            </Grow>
           </Grid>
         </Grid>
       </Grid>

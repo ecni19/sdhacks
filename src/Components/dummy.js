@@ -3,7 +3,7 @@ export const arr = [
     title: "some title1",
     tags: ["yes", "no", "maybe"],
     votes: 8451,
-    fileName: "https://courses.csail.mit.edu/6.046/fall01/handouts/ps8sol.pdf",
+    fileName: "zoom.png",
   },
   {
     title: "some title2",
@@ -129,20 +129,20 @@ export const arr = [
     title: "some title22",
     tags: ["yes", "no", "maybe", "sometimes"],
     votes: 203,
-    fileName: "https://courses.csail.mit.edu/6.046/fall01/handouts/ps8sol.pdf",
+    fileName: "Guy Disappearing Meme.jpg",
   },
   {
     title: "some title23",
     tags: ["yes", "no", "maybe", "unless"],
     votes: 68,
-    fileName: "https://courses.csail.mit.edu/6.046/fall01/handouts/ps8sol.pdf",
+    fileName: "e58WYZP.png",
   },
 
   {
     title: "some title24",
     tags: ["yes", "no", "maybe", "unless"],
     votes: -155,
-    fileName: "https://courses.csail.mit.edu/6.046/fall01/handouts/ps8sol.pdf",
+    fileName: "neuron.jpg",
   },
   {
     title: "some title25",
